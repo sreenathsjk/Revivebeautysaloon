@@ -1,4 +1,4 @@
-import { useState } from 'react';
+ import { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FiUser, FiPhone, FiCalendar, FiClock, FiCheckCircle, FiLoader } from 'react-icons/fi';
@@ -35,7 +35,8 @@ const TIME_SLOTS = [
   '06:00 PM', '06:30 PM', '07:00 PM', '07:30 PM',
 ];
 
-const SALON_PHONE = '919999999999'; // Replace with actual WhatsApp number (no +)
+// ✅ UPDATED PHONE NUMBER HERE
+const SALON_PHONE = '916300407182';
 
 export default function Booking() {
   const ref = useRef(null);
@@ -49,7 +50,7 @@ export default function Booking() {
     time: '',
     notes: '',
   });
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [status, setStatus] = useState('idle');
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -85,11 +86,9 @@ export default function Booking() {
 
   return (
     <section id="booking" className="section-pad noise-bg relative overflow-hidden">
-      {/* BG glow */}
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold-500/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10" ref={ref}>
-        {/* Heading */}
         <div className="text-center mb-12">
           <motion.p
             initial={{ opacity: 0 }}
@@ -104,8 +103,7 @@ export default function Booking() {
             transition={{ duration: 0.6 }}
             className="font-display font-bold text-4xl md:text-5xl text-white"
           >
-            Book Your{' '}
-            <span className="text-shimmer italic">Appointment</span>
+            Book Your <span className="text-shimmer italic">Appointment</span>
           </motion.h2>
           <div className="gold-divider" />
           <motion.p
@@ -126,19 +124,12 @@ export default function Booking() {
         >
           {status === 'success' ? (
             <div className="text-center py-12">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', bounce: 0.5 }}
-              >
-                <FiCheckCircle className="text-gold-400 mx-auto mb-5" size={64} />
-              </motion.div>
+              <FiCheckCircle className="text-gold-400 mx-auto mb-5" size={64} />
               <h3 className="font-display font-bold text-2xl text-white mb-3">
                 Booking Confirmed! 🎉
               </h3>
               <p className="text-white/60 font-body text-sm mb-6">
-                We've received your request. Our team will call you shortly to confirm your
-                appointment. See you soon!
+                We've received your request. Our team will call you shortly.
               </p>
               <button
                 onClick={() => setStatus('idle')}
@@ -150,161 +141,34 @@ export default function Booking() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Name */}
-                <div>
-                  <label className="block text-xs text-white/50 font-body uppercase tracking-widest mb-2">
-                    Full Name *
-                  </label>
-                  <div className="relative">
-                    <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={16} />
-                    <input
-                      type="text"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="Your name"
-                      required
-                      className="input-gold w-full pl-11 pr-4 py-3 text-sm font-body"
-                    />
-                  </div>
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-xs text-white/50 font-body uppercase tracking-widest mb-2">
-                    Phone Number *
-                  </label>
-                  <div className="relative">
-                    <FiPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={16} />
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="+916300407182"
-                      required
-                      className="input-gold w-full pl-11 pr-4 py-3 text-sm font-body"
-                    />
-                  </div>
-                </div>
+                <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your name" required className="input-gold" />
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+91 XXXXX XXXXX" required className="input-gold" />
               </div>
 
-              {/* Service */}
-              <div>
-                <label className="block text-xs text-white/50 font-body uppercase tracking-widest mb-2">
-                  Select Service *
-                </label>
-                <select
-                  name="service"
-                  value={form.service}
-                  onChange={handleChange}
-                  required
-                  className="input-gold w-full px-4 py-3 text-sm font-body appearance-none"
-                >
-                  <option value="" disabled>Choose a service...</option>
-                  {SERVICES.map((s) => (
-                    <option key={s} value={s} className="bg-obsidian">{s}</option>
-                  ))}
+              <select name="service" value={form.service} onChange={handleChange} required className="input-gold">
+                <option value="" disabled>Choose a service...</option>
+                {SERVICES.map((s) => <option key={s}>{s}</option>)}
+              </select>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <input type="date" name="date" value={form.date} onChange={handleChange} min={today} required className="input-gold" />
+                <select name="time" value={form.time} onChange={handleChange} required className="input-gold">
+                  <option value="" disabled>Select time...</option>
+                  {TIME_SLOTS.map((t) => <option key={t}>{t}</option>)}
                 </select>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Date */}
-                <div>
-                  <label className="block text-xs text-white/50 font-body uppercase tracking-widest mb-2">
-                    Preferred Date *
-                  </label>
-                  <div className="relative">
-                    <FiCalendar className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={16} />
-                    <input
-                      type="date"
-                      name="date"
-                      value={form.date}
-                      onChange={handleChange}
-                      min={today}
-                      required
-                      className="input-gold w-full pl-11 pr-4 py-3 text-sm font-body"
-                    />
-                  </div>
-                </div>
+              <textarea name="notes" value={form.notes} onChange={handleChange} placeholder="Any requests..." className="input-gold" />
 
-                {/* Time */}
-                <div>
-                  <label className="block text-xs text-white/50 font-body uppercase tracking-widest mb-2">
-                    Preferred Time *
-                  </label>
-                  <div className="relative">
-                    <FiClock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={16} />
-                    <select
-                      name="time"
-                      value={form.time}
-                      onChange={handleChange}
-                      required
-                      className="input-gold w-full pl-11 pr-4 py-3 text-sm font-body appearance-none"
-                    >
-                      <option value="" disabled>Select time...</option>
-                      {TIME_SLOTS.map((t) => (
-                        <option key={t} value={t} className="bg-obsidian">{t}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* Notes */}
-              <div>
-                <label className="block text-xs text-white/50 font-body uppercase tracking-widest mb-2">
-                  Special Requests (optional)
-                </label>
-                <textarea
-                  name="notes"
-                  value={form.notes}
-                  onChange={handleChange}
-                  rows={3}
-                  placeholder="Any specific requests or preferences..."
-                  className="input-gold w-full px-4 py-3 text-sm font-body resize-none"
-                />
-              </div>
-
-              {/* Submit Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="btn-gold flex-1 py-4 rounded-full font-body font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60"
-                >
-                  {status === 'loading' ? (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
-                      >
-                        <FiLoader size={16} />
-                      </motion.div>
-                      Confirming...
-                    </>
-                  ) : (
-                    <>
-                      <FiCalendar size={16} />
-                      Confirm Booking
-                    </>
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleWhatsApp}
-                  className="flex-1 sm:flex-none py-4 px-6 rounded-full font-body font-semibold text-sm flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#1fb359] transition-colors"
-                >
-                  <BsWhatsapp size={17} />
-                  Book via WhatsApp
+              <div className="flex gap-3">
+                <button type="submit" className="btn-gold flex-1">Confirm Booking</button>
+                <button type="button" onClick={handleWhatsApp} className="bg-[#25D366] text-white px-6 rounded-full">
+                  WhatsApp
                 </button>
               </div>
 
               {status === 'error' && (
-                <p className="text-red-400 text-xs text-center font-body">
-                  Something went wrong. Please try WhatsApp booking or call us.
-                </p>
+                <p className="text-red-400 text-xs text-center">Something went wrong.</p>
               )}
             </form>
           )}
@@ -312,4 +176,4 @@ export default function Booking() {
       </div>
     </section>
   );
-}
+            }
