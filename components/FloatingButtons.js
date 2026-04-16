@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { BsWhatsapp } from 'react-icons/bs';
 import { FiCalendar, FiPhone } from 'react-icons/fi';
 
-const SALON_PHONE = '919999999999';
+const SALON_PHONE = '916300407182';
 
 export default function FloatingButtons() {
   return (
