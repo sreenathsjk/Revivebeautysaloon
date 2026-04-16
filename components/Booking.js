@@ -181,7 +181,7 @@ export default function Booking() {
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
-                      placeholder="+91 XXXXX XXXXX"
+                      placeholder="+91 63004 07182"
                       required
                       className="input-gold w-full pl-11 pr-4 py-3 text-sm font-body"
                     />
