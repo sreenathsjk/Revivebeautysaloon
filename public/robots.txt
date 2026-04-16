@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://revivebeautysaloon.in/sitemap.xml
+
+# Block API routes from indexing
+Disallow: /api/
+
