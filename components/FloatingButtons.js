@@ -1,7 +1,8 @@
-import { motion } from 'framer-motion';
+ import { motion } from 'framer-motion';
 import { BsWhatsapp } from 'react-icons/bs';
 import { FiCalendar, FiPhone } from 'react-icons/fi';
 
+// ✅ UPDATED NUMBER
 const SALON_PHONE = '916300407182';
 
 export default function FloatingButtons() {
@@ -30,12 +31,13 @@ export default function FloatingButtons() {
       >
         <div className="flex gap-3">
           <a
-            href="tel:+919999999999"
+            href="tel:+916300407182"
             className="flex-1 btn-outline-gold py-3.5 rounded-xl text-sm font-body font-semibold flex items-center justify-center gap-2"
           >
             <FiPhone size={16} />
             Call
           </a>
+
           <a
             href="#booking"
             className="flex-[2] btn-gold py-3.5 rounded-xl text-sm font-body font-semibold flex items-center justify-center gap-2"
